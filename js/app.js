@@ -25,10 +25,19 @@ $(function (){
             	return Math.sqrt(Math.abs(x))*Math.tan(x)*Math.sin(y)-0; //x*y;
             },
             funcion2: function(x, y){
-                return Math.cos(x); //x*y;
+                return Math.cos(2*x); //x*y;
             },
             funcion3: function (x, y){
-                return Math.cos(3*x)+0.2*Math.sin(4*y); //x*y;
+                return Math.cos(3*x)+0.3*Math.sin(4*y); //x*y;
+            },
+            funcion4: function (x, y){
+                return Math.tan(x)*Math.tan(y)+0.5*Math.sin(4*y);
+            },
+            funcion5: function (x, y){
+                return Math.sin(4*x)*Math.cos(4*y)/2;
+            },
+            funcion6: function (x, y){
+                return Math.sin(8*x*y)/2;
             }
         };
         function convertira2D(x, y, z){
