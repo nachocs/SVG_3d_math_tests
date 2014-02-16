@@ -1,9 +1,18 @@
+// Converts from degrees to radians.
+Math.radians = function(degrees) {
+  return degrees * Math.PI / 180;
+};
+ 
+// Converts from radians to degrees.
+Math.degrees = function(radians) {
+  return radians * 180 / Math.PI;
+};
+
 $(function (){
     $('#svgintro').svg();
     var svg = $('#svgintro').svg('get');
-    var funcion = "funcion1";
 
-    function drawIntro (svg) {
+    function drawIntro (svg, funcion) {
         var g = svg.group({stroke: 'black', strokeWidth: 2});
         var gmain = svg.group({stroke: 'red', strokeWidth: 5});
 
@@ -22,7 +31,7 @@ $(function (){
             	return 0;
             },
             funcion1: function (x, y){
-            	return Math.sqrt(Math.abs(x))*Math.tan(x)*Math.sin(y)-0; //x*y;
+                return Math.sin(4*x)*Math.cos(4*y)/2;
             },
             funcion2: function(x, y){
                 return Math.cos(2*x); //x*y;
@@ -34,15 +43,17 @@ $(function (){
                 return Math.tan(x)*Math.tan(y)+0.5*Math.sin(4*y);
             },
             funcion5: function (x, y){
-                return Math.sin(4*x)*Math.cos(4*y)/2;
+                return Math.sqrt(Math.abs(x))*Math.tan(x)*Math.sin(y)-0; //x*y;
             },
             funcion6: function (x, y){
                 return Math.sin(8*x*y)/2;
             }
         };
         function convertira2D(x, y, z){
-        	var x1 = (x - y * 0.5)*escala*escala;
-        	var y1 = -1*(z*0.5 - y * 0.5)*escala*escala;
+            var alpha = Math.radians(30); // eje horizontal
+            var beta = Math.radians(30);
+        	var x1 = (x*Math.cos(alpha)*Math.cos(alpha) - y * (Math.sin(alpha) * Math.sin(alpha)))*escala*escala;
+        	var y1 = -1*(0.5 * z * (Math.cos(beta)) * (Math.cos(beta)) - y * (Math.sin(beta)) * (Math.sin(beta)))*escala*escala;
         	return {
         		x: x1,
         		y: y1
@@ -94,9 +105,9 @@ $(function (){
 
     $('#funcionselect').on('change', function (){
         $('#svgintro').svg('get').clear();
-        funcion = $('#funcionselect').val();
-        drawIntro(svg);
+        var funcion = $('#funcionselect').val();
+        drawIntro(svg, funcion);
     });
-    drawIntro(svg);
+    drawIntro(svg, "funcion1");
 
 });
